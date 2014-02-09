@@ -5,3 +5,4 @@
 *.war
 *.ear
 /boolean-solver/nbproject/private/
+/boolean-solver/build/

@@ -5,7 +5,7 @@ package pkgboolean.solver;
  *
  * @author Edilson
  */
-public class Variable {
+public class Variable implements Comparable<Variable> {
     
     private char value;
     private boolean not;
@@ -40,11 +40,19 @@ public class Variable {
     @Override
     public boolean equals(Object o) {
         if (o instanceof Variable) {
-            return ((Variable) o).value == this.value && ((Variable) o).not == this.not;
+            return ((Variable) o).value == this.value;
         } 
         
         return false;
     }
     
+    public boolean equalsVaribles(Variable v) {
+        return v.value == this.value && v.not == this.not;
+    }
+
+    @Override
+    public int compareTo(Variable t) {
+        return Character.compare(this.value, t.value);
+    }
     
 }

@@ -6,6 +6,8 @@
 
 package pkgboolean.solver;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Edilson
@@ -16,7 +18,14 @@ public class BooleanSolver {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        String functionInput = JOptionPane.showInputDialog(null);
+        try {
+            Function function = new Function(functionInput);
+            System.out.println(function.getVariables());
+            System.out.println(function.getVariableCount());
+        } catch (InvalidDataException ex) {
+            ex.printStackTrace();
+        }
     }
     
 }
