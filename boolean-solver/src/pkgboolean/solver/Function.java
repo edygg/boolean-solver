@@ -66,4 +66,10 @@ public class Function {
         return function;
     }
 
+    @Override
+    public String toString() {
+        return function;
+    }
+    
+    
 }

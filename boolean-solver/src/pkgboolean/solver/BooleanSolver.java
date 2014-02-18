@@ -21,8 +21,12 @@ public class BooleanSolver {
         String functionInput = JOptionPane.showInputDialog(null);
         try {
             Function function = new Function(functionInput);
-            System.out.println(function.getVariables());
-            System.out.println(function.getVariableCount());
+            TruthTable tt = new TruthTable(function);
+            boolean[] result = tt.getFunctionTruthTable();
+            
+            for (int i = 0; i < result.length; i++) {
+                System.out.print(result[i] + "\t");
+            }
         } catch (InvalidDataException ex) {
             ex.printStackTrace();
         }
