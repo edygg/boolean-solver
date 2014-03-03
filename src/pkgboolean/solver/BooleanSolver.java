@@ -24,9 +24,12 @@ public class BooleanSolver {
         try {
             Function function = new Function(functionInput);
             System.out.println(function.getFunction());
-            System.out.println(function.getVariables());
             System.out.println(function.getVariableCount());
-            function.printTruthTable();
+            System.out.println(function.getVariables());
+            TruthTable tt=new TruthTable(function);
+            tt.printTruthTable();
+            System.out.println("\n\n");
+            
         } catch (InvalidDataException ex) {
             ex.printStackTrace();
         }

@@ -21,6 +21,7 @@ public class Function {
         }
 
         this.identifyVariables();
+        Collections.sort(this.listVariables);
     }
 
     private boolean validate() {
@@ -51,12 +52,7 @@ public class Function {
     }
 
     public ArrayList<Variable> getVariables() {
-        ArrayList<Variable> ret = new ArrayList();
-        for (int i = 0; i < this.listVariables.size(); i++) {
-            ret.add(this.listVariables.get(i));
-        }
-        Collections.sort(ret);
-        return ret;
+        return this.listVariables;
     }
 
     public int getVariableCount() {
@@ -67,17 +63,4 @@ public class Function {
         return function;
     }
 
-    public void printTruthTable() {
-        int rows = (int) Math.pow(2, this.getVariableCount());
-        for (int i = 0; i < this.getVariableCount(); i++) {
-            System.out.print(this.getVariables().get(i) + " ");
-        }
-        System.out.println();
-        for (int i = 0; i < rows; i++) {
-            for (int j = this.getVariableCount() - 1; j >= 0; j--) {
-                System.out.print((i / (int) Math.pow(2, j)) % 2 + " ");
-            }
-            System.out.println();
-        }
-    }
 }
