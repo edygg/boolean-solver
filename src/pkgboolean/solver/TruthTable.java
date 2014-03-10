@@ -108,4 +108,52 @@ public class TruthTable {
         }
         return this.table[row][i];
     }
+    
+        public ArrayList<String> mintables(){
+        
+        ArrayList<Integer> pos=new ArrayList();
+        for (int i = 0; i < this.table_function.length; i++) {
+            if (this.table_function[i] == 1) {
+                pos.add(i);
+            }
+        }
+        ArrayList<String> rtable=new ArrayList();
+        String temp;
+        for (int i = 0; i < pos.size(); i++) {
+            temp="";
+            for (int j = 0; j < this.function.getVariableCount() ; j++) {
+                temp+=Integer.toString(this.table[pos.get(i)][j]);
+            }
+            rtable.add(temp);
+        }
+        for (int i = 0; i < rtable.size(); i++) {
+            System.out.println(rtable.get(i));
+        }
+        
+        return rtable;
+    }
+    
+        public ArrayList<String> maxtables(){
+        
+        ArrayList<Integer> pos=new ArrayList();
+        for (int i = 0; i < this.table_function.length; i++) {
+            if (this.table_function[i] == 0) {
+                pos.add(i);
+            }
+        }
+        ArrayList<String> rtable=new ArrayList();
+        String temp;
+        for (int i = 0; i < pos.size(); i++) {
+            temp="";
+            for (int j = 0; j < this.function.getVariableCount() ; j++) {
+                temp+=Integer.toString(this.table[pos.get(i)][j]);
+            }
+            rtable.add(temp);
+        }
+        for (int i = 0; i < rtable.size(); i++) {
+            System.out.println(rtable.get(i));
+        }
+        
+        return rtable;
+    }
 }

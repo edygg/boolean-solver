@@ -29,6 +29,10 @@ public class BooleanSolver {
             TruthTable tt=new TruthTable(function);
             tt.printTruthTable();
             System.out.println("\n\n");
+            tt.mintables();
+            System.out.println("\n\n");
+            tt.maxtables();
+            System.out.println("\n\n");
             
         } catch (InvalidDataException ex) {
             ex.printStackTrace();
