@@ -53,11 +53,10 @@ public class TruthTable {
         System.out.print("Function" + " ");
         System.out.println();
         for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < this.function.getVariableCount()+1; j++) {
-                if (j==this.function.getVariableCount()) {
+            for (int j = 0; j < this.function.getVariableCount() + 1; j++) {
+                if (j == this.function.getVariableCount()) {
                     System.out.print(this.table_function[i]);
-                }
-                else{
+                } else {
                     System.out.print(this.table[i][j] + " ");
                 }
             }
@@ -77,22 +76,21 @@ public class TruthTable {
                 for (int j = 0; j < subs[i].length(); j++) {
                     if (j != subs[i].length() - 1 && temp_sub.charAt(j + 1) == '\'') {
                         if (getNum(rows, temp_sub.charAt(j)) == 1) {
-                            temp*=0;
+                            temp *= 0;
                         }
                         ++j;
                     } else {
-                        temp*=getNum(rows,temp_sub.charAt(j));
+                        temp *= getNum(rows, temp_sub.charAt(j));
                     }
                 }
                 //System.out.println("El temp "+ temp_sub+" termina en : "+ temp);
                 temp_f += temp;
                 //System.out.println("Temp final_"+rows +" ="+temp_f);
             }
-            if (temp_f>=1) {
-                this.table_function[rows]=1;
-            }
-            else{
-                this.table_function[rows]=0;
+            if (temp_f >= 1) {
+                this.table_function[rows] = 1;
+            } else {
+                this.table_function[rows] = 0;
             }
             ++rows;
         }
@@ -108,52 +106,50 @@ public class TruthTable {
         }
         return this.table[row][i];
     }
-    
-        public ArrayList<String> mintables(){
-        
-        ArrayList<Integer> pos=new ArrayList();
+
+    public ArrayList<MinMaxTerm> mintables() {
+        ArrayList<MinMaxTerm> mintable = new ArrayList();
+        ArrayList<Integer> pos = new ArrayList();
         for (int i = 0; i < this.table_function.length; i++) {
-            if (this.table_function[i] == 1) {
+            if (this.table_function[i] == 1 || this.table_function[i] == 2) {
                 pos.add(i);
             }
         }
-        ArrayList<String> rtable=new ArrayList();
         String temp;
         for (int i = 0; i < pos.size(); i++) {
-            temp="";
-            for (int j = 0; j < this.function.getVariableCount() ; j++) {
-                temp+=Integer.toString(this.table[pos.get(i)][j]);
+            temp = "";
+            for (int j = 0; j < this.function.getVariableCount(); j++) {
+                temp += Integer.toString(this.table[pos.get(i)][j]);
             }
-            rtable.add(temp);
+            ArrayList<Integer> novo_list = new ArrayList();
+            novo_list.add(pos.get(i));
+            MinMaxTerm term = new MinMaxTerm(temp, true, novo_list);
+            mintable.add(term);
         }
-        for (int i = 0; i < rtable.size(); i++) {
-            System.out.println(rtable.get(i));
-        }
-        
-        return rtable;
+
+        return mintable;
     }
-    
-        public ArrayList<String> maxtables(){
-        
-        ArrayList<Integer> pos=new ArrayList();
+
+    public ArrayList<MinMaxTerm> maxtables() {
+        ArrayList<MinMaxTerm> mintable = new ArrayList();
+        ArrayList<Integer> pos = new ArrayList();
         for (int i = 0; i < this.table_function.length; i++) {
-            if (this.table_function[i] == 0) {
+            if (this.table_function[i] == 0 || this.table_function[i] == 2) {
                 pos.add(i);
             }
         }
-        ArrayList<String> rtable=new ArrayList();
         String temp;
         for (int i = 0; i < pos.size(); i++) {
-            temp="";
-            for (int j = 0; j < this.function.getVariableCount() ; j++) {
-                temp+=Integer.toString(this.table[pos.get(i)][j]);
+            temp = "";
+            for (int j = 0; j < this.function.getVariableCount(); j++) {
+                temp += Integer.toString(this.table[pos.get(i)][j]);
             }
-            rtable.add(temp);
+            ArrayList<Integer> novo_list = new ArrayList();
+            novo_list.add(pos.get(i));
+            MinMaxTerm term = new MinMaxTerm(temp, false, novo_list);
+            mintable.add(term);
         }
-        for (int i = 0; i < rtable.size(); i++) {
-            System.out.println(rtable.get(i));
-        }
-        
-        return rtable;
+
+        return mintable;
     }
 }

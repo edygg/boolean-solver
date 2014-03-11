@@ -17,7 +17,7 @@ public class Function {
         this.function = function;
         if (!this.validate()) {
             this.function = "";
-            throw new InvalidDataException("Function not in SOP");
+            throw new InvalidDataException("Function not write in the correct format");
         }
 
         this.identifyVariables();
@@ -30,7 +30,13 @@ public class Function {
         if (this.function.matches(sopPattern)) {
             return true;
         }
-
+        
+        String dontCarePattern = "([s|p|d][(]([0-31][\\\\,]{0,1})*[)])";
+        //Dont Care
+        if (this.function.matches(dontCarePattern)) {
+            return true;
+        }
+        
         this.function = "";
         return false;
     }

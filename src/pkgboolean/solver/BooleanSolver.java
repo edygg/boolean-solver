@@ -33,6 +33,8 @@ public class BooleanSolver {
             System.out.println("\n\n");
             tt.maxtables();
             System.out.println("\n\n");
+            MapK mp = new MapK(tt);
+            mp.simplifyaFunctionMinTerms();
             
         } catch (InvalidDataException ex) {
             ex.printStackTrace();
