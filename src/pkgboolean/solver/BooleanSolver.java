@@ -20,19 +20,18 @@ public class BooleanSolver {
      */
     
     public static void main(String[] args) {
-        String functionInput = JOptionPane.showInputDialog(null);
+        String functionInput = JOptionPane.showInputDialog("Ingrese la función: ");
+        String number = JOptionPane.showInputDialog("Ingrese la cantidad de variables: ");
         try {
-            Function function = new Function(functionInput);
-            System.out.println(function.getFunction());
-            System.out.println(function.getVariableCount());
-            System.out.println(function.getVariables());
+            Function function = new Function(functionInput, Integer.parseInt(number));
+            System.out.println("Function: " + function.getFunction());
+            System.out.println("# variables: " + function.getVariableCount());
+            System.out.println("variables: " + function.getVariables());
+            System.out.println("Minterms: " + function.getMinTerms());
+            System.out.println("Maxterms: " + function.getMaxTerms());
+            System.out.println("Don't Care: " + function.getDontCareTerms());
             TruthTable tt=new TruthTable(function);
             tt.printTruthTable();
-            System.out.println("\n\n");
-            tt.mintables();
-            System.out.println("\n\n");
-            tt.maxtables();
-            System.out.println("\n\n");
             MapK mp = new MapK(tt);
             mp.simplifyaFunctionMinTerms();
             

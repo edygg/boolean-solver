@@ -12,27 +12,30 @@ public class Function {
 
     public static final String sopPattern = "([a-zA-z][\\']{0,1})*([\\+]([a-zA-z][\\']{0,1})*)*";
     public static final String dontCarePattern = "([s|p][\\(]([0-9]|[1-2][0-9]|[3][0-1])([\\,][0-9]|[\\,][1-2][0-9]|[\\,][3][0-1]){0,30}[\\)])([\\+][d][\\(]([0-9]|[1-2][0-9]|[3][0-1])([\\,][0-9]|[\\,][1-2][0-9]|[\\,][3][0-1]){0,30}[\\)]){0,1}";
+    public static final String dontCareMaxTermPattern = "([p][\\(]([0-9]|[1-2][0-9]|[3][0-1])([\\,][0-9]|[\\,][1-2][0-9]|[\\,][3][0-1]){0,30}[\\)])([\\+][d][\\(]([0-9]|[1-2][0-9]|[3][0-1])([\\,][0-9]|[\\,][1-2][0-9]|[\\,][3][0-1]){0,30}[\\)]){0,1}";
+    public static final String dontCareMinTermPattern = "([s][\\(]([0-9]|[1-2][0-9]|[3][0-1])([\\,][0-9]|[\\,][1-2][0-9]|[\\,][3][0-1]){0,30}[\\)])([\\+][d][\\(]([0-9]|[1-2][0-9]|[3][0-1])([\\,][0-9]|[\\,][1-2][0-9]|[\\,][3][0-1]){0,30}[\\)]){0,1}";
+
     private ArrayList<Variable> listVariables;
     private String function;
 
-    public Function(String function) throws InvalidDataException {
+    public Function(String function, int numberVaribales) throws InvalidDataException {
         this.listVariables = new ArrayList();
         this.function = function;
         if (!this.validate()) {
             this.function = "";
             throw new InvalidDataException("Function not write in the correct format");
         }
-
+        
         if (this.function.matches(sopPattern)) {
             this.identifyVariables();
         } else {
-            if (!this.parseCompactFunction()) {
+            if (!this.parseCompactFunction(numberVaribales)) {
                 throw new InvalidDataException("Please check the function again");
             }
         }
         Collections.sort(this.listVariables);
     }
-
+    
     private boolean validate() {
         //SOP
         if (this.function.matches(sopPattern)) {
@@ -48,7 +51,11 @@ public class Function {
         return false;
     }
 
-    private boolean parseCompactFunction() throws InvalidDataException {
+    private boolean parseCompactFunction(int numberVariables) throws InvalidDataException {
+        if (numberVariables > 5) {
+            return false;
+        }
+        
         String[] parts = this.function.split("[+]");
         TreeSet<Integer> termsSet = new TreeSet();
 
@@ -65,11 +72,11 @@ public class Function {
                 return false;
             }
         }
-        
+
         if (parts.length == 2) {
             parts[1] = parts[1].replace("d(", "");
             parts[1] = parts[1].replace(")", "");
-            
+
             String dontCareterms[] = parts[1].split(",");
 
             for (int i = 0; i < dontCareterms.length; i++) {
@@ -80,7 +87,7 @@ public class Function {
                 }
             }
         }
-        
+
         int highestTerm = termsSet.last();
         int iterations = 1;
         if (highestTerm < 2) {
@@ -97,10 +104,14 @@ public class Function {
             //No se pueden mas de 5 variables para esta nomenclatura
             return false;
         }
-
+        
+        if (iterations > numberVariables) {
+            return false;
+        }
+        
         int variableChar = 65;
-
-        for (int i = 0; i < iterations; i++) {
+        
+        for (int i = 0; i < numberVariables; i++) {
             this.listVariables.add(new Variable((char) variableChar, false));
             variableChar++;
         }
@@ -136,4 +147,142 @@ public class Function {
         return function;
     }
 
+    public boolean isSopPattern() {
+        return this.function.matches(sopPattern);
+    }
+
+    public boolean isDontCareMaxTermsPattern() {
+        return this.function.matches(dontCareMaxTermPattern);
+    }
+
+    public boolean isDontCareMinTermsPattern() {
+        return this.function.matches(dontCareMinTermPattern);
+    }
+
+    public ArrayList<Integer> getMinTerms() {
+        ArrayList<Integer> retList = new ArrayList();
+
+        if (isSopPattern()) {
+            return null;
+        } else if (isDontCareMinTermsPattern()) {
+            String[] parts = this.function.split("[+]");
+
+            parts[0] = parts[0].replace("s(", "");
+            parts[0] = parts[0].replace(")", "");
+
+            String terms[] = parts[0].split(",");
+
+            for (int i = 0; i < terms.length; i++) {
+                retList.add(Integer.parseInt(terms[i]));
+            }
+
+            return retList;
+        } else {
+            String[] parts = this.function.split("[+]");
+            TreeSet<Integer> termsSet = new TreeSet();
+
+            parts[0] = parts[0].replace("p(", "");
+            parts[0] = parts[0].replace(")", "");
+
+            String terms[] = parts[0].split(",");
+
+            for (int i = 0; i < terms.length; i++) {
+                termsSet.add(Integer.parseInt(terms[i]));
+            }
+            
+            if (parts.length == 2) {
+                parts[1] = parts[1].replace("d(", "");
+                parts[1] = parts[1].replace(")", "");
+
+                String dontCareterms[] = parts[1].split(",");
+
+                for (int i = 0; i < dontCareterms.length; i++) {
+                    termsSet.add(Integer.parseInt(dontCareterms[i]));
+                }
+            }
+
+            for (int i = 0; i < (int) Math.pow(2, this.getVariableCount()); i++) {
+                if (!termsSet.contains(i)) {
+                    retList.add(i);
+                }
+            }
+
+            return retList;
+        }
+    }
+
+    public ArrayList<Integer> getMaxTerms() {
+        ArrayList<Integer> retList = new ArrayList();
+
+        if (isSopPattern()) {
+            return null;
+        } else if (isDontCareMaxTermsPattern()) {
+            String[] parts = this.function.split("[+]");
+
+            parts[0] = parts[0].replace("p(", "");
+            parts[0] = parts[0].replace(")", "");
+
+            String terms[] = parts[0].split(",");
+
+            for (int i = 0; i < terms.length; i++) {
+                retList.add(Integer.parseInt(terms[i]));
+            }
+
+            return retList;
+        } else {
+            String[] parts = this.function.split("[+]");
+            TreeSet<Integer> termsSet = new TreeSet();
+
+            parts[0] = parts[0].replace("s(", "");
+            parts[0] = parts[0].replace(")", "");
+
+            String terms[] = parts[0].split(",");
+
+            for (int i = 0; i < terms.length; i++) {
+                termsSet.add(Integer.parseInt(terms[i]));
+            }
+            
+            if (parts.length == 2) {
+                parts[1] = parts[1].replace("d(", "");
+                parts[1] = parts[1].replace(")", "");
+
+                String dontCareterms[] = parts[1].split(",");
+
+                for (int i = 0; i < dontCareterms.length; i++) {
+                    termsSet.add(Integer.parseInt(dontCareterms[i]));
+                }
+            }
+
+
+            for (int i = 0; i < (int) Math.pow(2, this.getVariableCount()); i++) {
+                if (!termsSet.contains(i)) {
+                    retList.add(i);
+                }
+            }
+            
+            return retList;
+        }
+    }
+
+    public ArrayList<Integer> getDontCareTerms() {
+        if (isSopPattern()) {
+            return null;
+        }
+        
+        String[] parts = this.function.split("[+]");
+        ArrayList<Integer> retList = new ArrayList();
+        
+        if (parts.length == 2) {
+            parts[1] = parts[1].replace("d(", "");
+            parts[1] = parts[1].replace(")", "");
+
+            String dontCareterms[] = parts[1].split(",");
+
+            for (int i = 0; i < dontCareterms.length; i++) {
+                retList.add(Integer.parseInt(dontCareterms[i]));
+            }
+        }
+        
+        return retList;
+    }
 }

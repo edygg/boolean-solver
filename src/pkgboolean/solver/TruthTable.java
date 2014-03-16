@@ -34,15 +34,25 @@ public class TruthTable {
         for (int i = 0; i < (int) Math.pow(2, this.function.getVariableCount()); i++) {
             this.table_function[i] = 0;
         }
-        solve_function();
+        if (this.function.isSopPattern()) {
+            solve_function();
+        } else {
+            ArrayList<Integer> terms = this.function.getMinTerms();
+            
+            for (int i = 0; i < terms.size(); i++) {
+                table_function[terms.get(i)] = 1;
+            }
+            
+            ArrayList<Integer> dontCareTerms = this.function.getDontCareTerms();
+            
+            for (int i = 0; i < dontCareTerms.size(); i++) {
+                table_function[dontCareTerms.get(i)] = 2;
+            }
+        }
     }
 
     public Function getFunction() {
         return function;
-    }
-
-    public void setFunction(Function function) {
-        this.function = function;
     }
 
     public void printTruthTable() {
@@ -106,7 +116,7 @@ public class TruthTable {
         }
         return this.table[row][i];
     }
-
+    
     public ArrayList<MinMaxTerm> mintables() {
         ArrayList<MinMaxTerm> mintable = new ArrayList();
         ArrayList<Integer> pos = new ArrayList();
