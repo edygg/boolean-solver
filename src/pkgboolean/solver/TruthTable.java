@@ -50,9 +50,41 @@ public class TruthTable {
             }
         }
     }
+    
+    public TruthTable(ArrayList<String> functionValues) throws InvalidDataException {
+        int variableCount = (int) (Math.log(functionValues.size())/Math.log(2));
+        int temp, k;
+        table = new int[functionValues.size()][variableCount];
+        table_function = new int[functionValues.size()];
+        for (int i = 0; i < functionValues.size(); i++) {
+            k = 0;
+            for (int j = variableCount - 1; j >= 0; j--) {
+
+                temp = (int) ((i / (int) Math.pow(2, j)) % 2);
+                table[i][k] = temp;
+                ++k;
+            }
+        }
+        
+        for (int i = 0; i < functionValues.size(); i++) {
+            if (functionValues.get(i).equals("1") || functionValues.get(i).equals("0") || functionValues.get(i).equals("x")) {
+                if (functionValues.get(i).equals("x")) {
+                    table_function[i] = 2;
+                } else {
+                    table_function[i] = Integer.parseInt(functionValues.get(i));
+                }
+            } else {
+                throw new InvalidDataException("Some input are not valid");
+            }
+        }
+    }
 
     public Function getFunction() {
         return function;
+    }
+    
+    public int[] getTableFunction() {
+        return this.table_function;
     }
 
     public void printTruthTable() {

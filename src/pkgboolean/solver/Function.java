@@ -19,6 +19,10 @@ public class Function {
     private String function;
 
     public Function(String function, int numberVaribales) throws InvalidDataException {
+        if (function.isEmpty()) {
+            throw new InvalidDataException("Function is empty");
+        }
+        
         this.listVariables = new ArrayList();
         this.function = function;
         if (!this.validate()) {
