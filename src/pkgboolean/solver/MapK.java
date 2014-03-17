@@ -16,34 +16,46 @@ public class MapK {
     }
     
     public Function simplifyaFunctionMinTerms() {
-        
+        ArrayList<MinMaxTerm> prime_implicant_chart=new ArrayList();
         ArrayList<MinMaxTerm> ftable = this.mainTable.mintables();
-        int countDifferences = 1;
-        boolean findPattern = true;
+        boolean withoutP = false;
+        boolean eslct=false;
         
-        while (findPattern && countDifferences < this.mainTable.getFunction().getVariableCount()) {
+        while (!withoutP) {
             ArrayList<MinMaxTerm> neoList = new ArrayList();
-            findPattern = false;
             for (int i = 0; i < ftable.size(); i++) {
                 MinMaxTerm temp = ftable.get(i);
-
+                
                 for (int j = i + 1; j < ftable.size(); j++) {
                     MinMaxTerm neoPattern = temp.compareTerms(ftable.get(j));
-                    if (neoPattern != null && neoList.indexOf(neoPattern) == -1) {
-                        findPattern = true;
-                        neoList.add(neoPattern);
+                    if (neoPattern != null) {
+                        temp.setParticipate(true);
+                        ftable.get(j).setParticipate(true);
+                        if (neoList.indexOf(neoPattern) == -1) {
+                            neoList.add(neoPattern);
+                        }
                     }
+                }
+            }
+            
+            withoutP = true;
+            
+            for (int i = 0; i < ftable.size(); i++) {
+                if (!ftable.get(i).isParticipate()) {
+                    prime_implicant_chart.add(ftable.get(i));
+                } else {
+                    withoutP = false;
                 }
             }
             
             if (!neoList.isEmpty()) {
                 ftable = neoList;
-                countDifferences++;
             }
+            
         }
         
-        for (int i = 0; i < ftable.size(); i++) {
-            System.out.println(ftable.get(i));
+        for (int i = 0; i < prime_implicant_chart.size(); i++) {
+            System.out.println(prime_implicant_chart.get(i).getTerm());
         }
               
         return null;

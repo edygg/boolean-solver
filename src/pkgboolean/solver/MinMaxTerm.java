@@ -16,7 +16,8 @@ public class MinMaxTerm {
 
     private ArrayList<Integer> positions;
     private String term;
-    private boolean min;
+    private boolean min;    
+    private boolean participate;
 
     public MinMaxTerm(String term, boolean min, ArrayList<Integer> positions) {
         this.term = term;
@@ -38,6 +39,14 @@ public class MinMaxTerm {
 
     public boolean searchTerm(int pos) {
         return this.positions.indexOf(pos) != -1;
+    }
+    
+    public boolean isParticipate() {
+        return participate;
+    }
+
+    public void setParticipate(boolean participate) {
+        this.participate = participate;
     }
 
     public MinMaxTerm compareTerms(MinMaxTerm other) {
