@@ -32,6 +32,10 @@ public class BooleanSolver {
             System.out.println("Don't Care: " + function.getDontCareTerms());
             TruthTable tt=new TruthTable(function);
             tt.printTruthTable();
+            ArrayList<MinMaxTerm> mmt = tt.getDontCareTerms();
+            for (int i = 0; i < mmt.size(); i++) {
+                System.out.println(mmt.get(i).getTerm());
+            }
             System.out.println("\n\n\n");
             MapK mp = new MapK(tt);
             mp.simplifyaFunctionMinTerms();

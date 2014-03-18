@@ -37,6 +37,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         bgFunctionVariables = new javax.swing.ButtonGroup();
         bgTableVariables = new javax.swing.ButtonGroup();
+        bgKMapVariables = new javax.swing.ButtonGroup();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -59,6 +60,19 @@ public class MainWindow extends javax.swing.JFrame {
         btnGenerateTable = new javax.swing.JButton();
         btnClearTable = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tableKMap2 = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tableKMap1 = new javax.swing.JTable();
+        tfSimplifiedFunction = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        rbtnFiveVariablesKMap = new javax.swing.JRadioButton();
+        rbtnFourVariablesKMap = new javax.swing.JRadioButton();
+        rbtnThreeVariablesKMap = new javax.swing.JRadioButton();
+        rbtnTwoVariablesKMap = new javax.swing.JRadioButton();
+        jLabel5 = new javax.swing.JLabel();
+        btnClearKMap = new javax.swing.JButton();
+        btnGenerateKMap = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("DLD Project");
@@ -146,9 +160,9 @@ public class MainWindow extends javax.swing.JFrame {
                     .addComponent(rbtnThreeVariablesFunction)
                     .addComponent(rbtnFourVariablesFunction)
                     .addComponent(rbtnFiveVariablesFunction))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 165, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(btnGenerateFromFunction, javax.swing.GroupLayout.DEFAULT_SIZE, 77, Short.MAX_VALUE)
+                    .addComponent(btnGenerateFromFunction, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
                     .addComponent(btnClearFunction, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -200,6 +214,7 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
+        btnGenerateTable.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnGenerateTable.setText("Generate");
         btnGenerateTable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -207,6 +222,7 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
+        btnClearTable.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnClearTable.setText("Clear");
         btnClearTable.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -261,15 +277,140 @@ public class MainWindow extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Truth Table", jPanel2);
 
+        tableKMap2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(tableKMap2);
+
+        tableKMap1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane3.setViewportView(tableKMap1);
+
+        tfSimplifiedFunction.setEditable(false);
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel4.setText("Simplified function");
+
+        bgKMapVariables.add(rbtnFiveVariablesKMap);
+        rbtnFiveVariablesKMap.setText("5");
+        rbtnFiveVariablesKMap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnFiveVariablesKMapActionPerformed(evt);
+            }
+        });
+
+        bgKMapVariables.add(rbtnFourVariablesKMap);
+        rbtnFourVariablesKMap.setText("4");
+        rbtnFourVariablesKMap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnFourVariablesKMapActionPerformed(evt);
+            }
+        });
+
+        bgKMapVariables.add(rbtnThreeVariablesKMap);
+        rbtnThreeVariablesKMap.setSelected(true);
+        rbtnThreeVariablesKMap.setText("3");
+        rbtnThreeVariablesKMap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnThreeVariablesKMapActionPerformed(evt);
+            }
+        });
+
+        bgKMapVariables.add(rbtnTwoVariablesKMap);
+        rbtnTwoVariablesKMap.setText("2");
+        rbtnTwoVariablesKMap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnTwoVariablesKMapActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Variables:");
+
+        btnClearKMap.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnClearKMap.setText("Clear");
+        btnClearKMap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearKMapActionPerformed(evt);
+            }
+        });
+
+        btnGenerateKMap.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnGenerateKMap.setText("Generate");
+        btnGenerateKMap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerateKMapActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 665, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(184, 184, 184)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(tfSimplifiedFunction, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel5)
+                                .addGap(18, 18, 18)
+                                .addComponent(rbtnTwoVariablesKMap)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(rbtnThreeVariablesKMap)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(rbtnFourVariablesKMap)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(rbtnFiveVariablesKMap)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnClearKMap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnGenerateKMap, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 410, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel5)
+                        .addComponent(rbtnTwoVariablesKMap)
+                        .addComponent(rbtnThreeVariablesKMap)
+                        .addComponent(rbtnFourVariablesKMap)
+                        .addComponent(rbtnFiveVariablesKMap))
+                    .addComponent(btnClearKMap, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tfSimplifiedFunction, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel4))
+                    .addComponent(btnGenerateKMap, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Karnaugh map", jPanel3);
@@ -278,16 +419,16 @@ public class MainWindow extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 423, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -360,18 +501,154 @@ public class MainWindow extends javax.swing.JFrame {
 
                 functionValues.add(this.tableTruthTable.getValueAt(i, columns).toString());
             }
-            
+
             TruthTable truthTable = new TruthTable(functionValues);
         } catch (InvalidDataException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnGenerateTableActionPerformed
 
+    private void rbtnFiveVariablesKMapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnFiveVariablesKMapActionPerformed
+        this.tableKMap2.setEnabled(true);
+        this.generateKMap();
+    }//GEN-LAST:event_rbtnFiveVariablesKMapActionPerformed
+
+    private void rbtnFourVariablesKMapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnFourVariablesKMapActionPerformed
+        this.tableKMap2.setEnabled(false);
+        this.generateKMap();
+    }//GEN-LAST:event_rbtnFourVariablesKMapActionPerformed
+
+    private void rbtnThreeVariablesKMapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnThreeVariablesKMapActionPerformed
+        this.tableKMap2.setEnabled(false);
+        this.generateKMap();
+    }//GEN-LAST:event_rbtnThreeVariablesKMapActionPerformed
+
+    private void rbtnTwoVariablesKMapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnTwoVariablesKMapActionPerformed
+        this.tableKMap2.setEnabled(false);
+        this.generateKMap();
+    }//GEN-LAST:event_rbtnTwoVariablesKMapActionPerformed
+
+    private void btnClearKMapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearKMapActionPerformed
+        this.cleanComponents();
+    }//GEN-LAST:event_btnClearKMapActionPerformed
+
+    private void btnGenerateKMapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateKMapActionPerformed
+        try {
+            TruthTable truthTable = null;
+
+            if (rbtnTwoVariablesKMap.isSelected()) {
+                ArrayList<String> functionValues = new ArrayList();
+                functionValues.add(this.tableKMap1.getValueAt(0, 0).toString());
+                functionValues.add(this.tableKMap1.getValueAt(0, 1).toString());
+                functionValues.add(this.tableKMap1.getValueAt(1, 0).toString());
+                functionValues.add(this.tableKMap1.getValueAt(1, 1).toString());
+                truthTable = new TruthTable(functionValues);
+            } else if (rbtnThreeVariablesKMap.isSelected()) {
+                ArrayList<String> functionValues = new ArrayList();
+                functionValues.add(this.tableKMap1.getValueAt(0, 0).toString());
+                functionValues.add(this.tableKMap1.getValueAt(0, 1).toString());
+                functionValues.add(this.tableKMap1.getValueAt(0, 3).toString());
+                functionValues.add(this.tableKMap1.getValueAt(0, 2).toString());
+                functionValues.add(this.tableKMap1.getValueAt(1, 0).toString());
+                functionValues.add(this.tableKMap1.getValueAt(1, 1).toString());
+                functionValues.add(this.tableKMap1.getValueAt(1, 3).toString());
+                functionValues.add(this.tableKMap1.getValueAt(1, 2).toString());
+                truthTable = new TruthTable(functionValues);
+            } else if (rbtnFourVariablesKMap.isSelected()) {
+                ArrayList<String> functionValues = new ArrayList();
+                functionValues.add(this.tableKMap1.getValueAt(0, 0).toString());
+                functionValues.add(this.tableKMap1.getValueAt(0, 1).toString());
+                functionValues.add(this.tableKMap1.getValueAt(0, 3).toString());
+                functionValues.add(this.tableKMap1.getValueAt(0, 2).toString());
+                functionValues.add(this.tableKMap1.getValueAt(1, 0).toString());
+                functionValues.add(this.tableKMap1.getValueAt(1, 1).toString());
+                functionValues.add(this.tableKMap1.getValueAt(1, 3).toString());
+                functionValues.add(this.tableKMap1.getValueAt(1, 2).toString());
+                functionValues.add(this.tableKMap1.getValueAt(1, 2).toString());
+                functionValues.add(this.tableKMap1.getValueAt(3, 0).toString());
+                functionValues.add(this.tableKMap1.getValueAt(3, 1).toString());
+                functionValues.add(this.tableKMap1.getValueAt(3, 3).toString());
+                functionValues.add(this.tableKMap1.getValueAt(3, 2).toString());
+                functionValues.add(this.tableKMap1.getValueAt(2, 0).toString());
+                functionValues.add(this.tableKMap1.getValueAt(2, 1).toString());
+                functionValues.add(this.tableKMap1.getValueAt(2, 3).toString());
+                functionValues.add(this.tableKMap1.getValueAt(2, 2).toString());
+                truthTable = new TruthTable(functionValues);
+            } else {
+                ArrayList<String> functionValues = new ArrayList();
+                functionValues.add(this.tableKMap1.getValueAt(0, 0).toString());
+                functionValues.add(this.tableKMap1.getValueAt(0, 1).toString());
+                functionValues.add(this.tableKMap1.getValueAt(0, 3).toString());
+                functionValues.add(this.tableKMap1.getValueAt(0, 2).toString());
+                functionValues.add(this.tableKMap1.getValueAt(1, 0).toString());
+                functionValues.add(this.tableKMap1.getValueAt(1, 1).toString());
+                functionValues.add(this.tableKMap1.getValueAt(1, 3).toString());
+                functionValues.add(this.tableKMap1.getValueAt(1, 2).toString());
+                functionValues.add(this.tableKMap1.getValueAt(1, 2).toString());
+                functionValues.add(this.tableKMap1.getValueAt(3, 0).toString());
+                functionValues.add(this.tableKMap1.getValueAt(3, 1).toString());
+                functionValues.add(this.tableKMap1.getValueAt(3, 3).toString());
+                functionValues.add(this.tableKMap1.getValueAt(3, 2).toString());
+                functionValues.add(this.tableKMap1.getValueAt(2, 0).toString());
+                functionValues.add(this.tableKMap1.getValueAt(2, 1).toString());
+                functionValues.add(this.tableKMap1.getValueAt(2, 3).toString());
+                functionValues.add(this.tableKMap1.getValueAt(2, 2).toString());
+                
+                functionValues.add(this.tableKMap2.getValueAt(0, 0).toString());
+                functionValues.add(this.tableKMap2.getValueAt(0, 1).toString());
+                functionValues.add(this.tableKMap2.getValueAt(0, 3).toString());
+                functionValues.add(this.tableKMap2.getValueAt(0, 2).toString());
+                functionValues.add(this.tableKMap2.getValueAt(1, 0).toString());
+                functionValues.add(this.tableKMap2.getValueAt(1, 1).toString());
+                functionValues.add(this.tableKMap2.getValueAt(1, 3).toString());
+                functionValues.add(this.tableKMap2.getValueAt(1, 2).toString());
+                functionValues.add(this.tableKMap2.getValueAt(1, 2).toString());
+                functionValues.add(this.tableKMap2.getValueAt(3, 0).toString());
+                functionValues.add(this.tableKMap2.getValueAt(3, 1).toString());
+                functionValues.add(this.tableKMap2.getValueAt(3, 3).toString());
+                functionValues.add(this.tableKMap2.getValueAt(3, 2).toString());
+                functionValues.add(this.tableKMap2.getValueAt(2, 0).toString());
+                functionValues.add(this.tableKMap2.getValueAt(2, 1).toString());
+                functionValues.add(this.tableKMap2.getValueAt(2, 3).toString());
+                functionValues.add(this.tableKMap2.getValueAt(2, 2).toString());
+                
+                truthTable = new TruthTable(functionValues);
+            }
+            
+            int[] tableFunction = truthTable.getTableFunction();
+
+            if (rbtnTwoVariablesKMap.isSelected()) {
+                rbtnTwoVariablesTable.setSelected(true);
+            } else if (rbtnThreeVariablesKMap.isSelected()) {
+                rbtnThreeVariablesTable.setSelected(true);
+            } else if (rbtnFourVariablesKMap.isSelected()) {
+                rbtnFourVariablesTable.setSelected(true);
+            } else {
+                rbtnFiveVariablesKMap.setSelected(true);
+            }
+            this.generateTruthTableModel(null);
+            DefaultTableModel tableModel = (DefaultTableModel) this.tableTruthTable.getModel();
+
+            for (int i = 0; i < tableFunction.length; i++) {
+                if (tableFunction[i] != 2) {
+                    tableModel.setValueAt(tableFunction[i], i, tableModel.getColumnCount() - 1);
+                } else {
+                    tableModel.setValueAt("x", i, tableModel.getColumnCount() - 1);
+                }
+            }
+            this.tableTruthTable.setModel(tableModel);
+            
+        } catch (InvalidDataException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnGenerateKMapActionPerformed
+
     /* Funciones del programa */
     private void cleanComponents() {
         this.tfFunction.setText("");
         this.rbtnThreeVariablesFunction.setSelected(true);
         this.generateTruthTableModel(null);
+        this.generateKMap();
     }
 
     private void generateTruthTableModel(ArrayList<Variable> variables) {
@@ -435,6 +712,43 @@ public class MainWindow extends javax.swing.JFrame {
         this.tableTruthTable.setModel(neomodel);
     }
 
+    public void generateKMap() {
+        if (this.rbtnTwoVariablesKMap.isSelected()) {
+            Vector<String> colnames = new Vector();
+            for (int i = 0; i < 2; i++) {
+                colnames.add("");
+            }
+            DefaultTableModel neoModel = new DefaultTableModel(colnames, 2);
+            this.tableKMap1.setModel(neoModel);
+            this.tableKMap2.setModel(new DefaultTableModel());
+        } else if (rbtnThreeVariablesKMap.isSelected()) {
+            Vector<String> colnames = new Vector();
+            for (int i = 0; i < 4; i++) {
+                colnames.add("");
+            }
+            DefaultTableModel neoModel = new DefaultTableModel(colnames, 2);
+            this.tableKMap1.setModel(neoModel);
+            this.tableKMap2.setModel(new DefaultTableModel());
+        } else if (rbtnFourVariablesKMap.isSelected()) {
+            Vector<String> colnames = new Vector();
+            for (int i = 0; i < 4; i++) {
+                colnames.add("");
+            }
+            DefaultTableModel neoModel = new DefaultTableModel(colnames, 4);
+            this.tableKMap1.setModel(neoModel);
+            this.tableKMap2.setModel(new DefaultTableModel());
+        } else {
+            Vector<String> colnames = new Vector();
+            for (int i = 0; i < 4; i++) {
+                colnames.add("");
+            }
+            DefaultTableModel neoModel = new DefaultTableModel(colnames, 4);
+            DefaultTableModel neoModel2 = new DefaultTableModel(colnames, 4);
+            this.tableKMap1.setModel(neoModel);
+            this.tableKMap2.setModel(neoModel2);
+        }
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -472,28 +786,42 @@ public class MainWindow extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgFunctionVariables;
+    private javax.swing.ButtonGroup bgKMapVariables;
     private javax.swing.ButtonGroup bgTableVariables;
     private javax.swing.JButton btnClearFunction;
+    private javax.swing.JButton btnClearKMap;
     private javax.swing.JButton btnClearTable;
     private javax.swing.JButton btnGenerateFromFunction;
+    private javax.swing.JButton btnGenerateKMap;
     private javax.swing.JButton btnGenerateTable;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JRadioButton rbtnFiveVariablesFunction;
+    private javax.swing.JRadioButton rbtnFiveVariablesKMap;
     private javax.swing.JRadioButton rbtnFiveVariablesTable;
     private javax.swing.JRadioButton rbtnFourVariablesFunction;
+    private javax.swing.JRadioButton rbtnFourVariablesKMap;
     private javax.swing.JRadioButton rbtnFourVariablesTable;
     private javax.swing.JRadioButton rbtnThreeVariablesFunction;
+    private javax.swing.JRadioButton rbtnThreeVariablesKMap;
     private javax.swing.JRadioButton rbtnThreeVariablesTable;
     private javax.swing.JRadioButton rbtnTwoVariablesFunction;
+    private javax.swing.JRadioButton rbtnTwoVariablesKMap;
     private javax.swing.JRadioButton rbtnTwoVariablesTable;
+    private javax.swing.JTable tableKMap1;
+    private javax.swing.JTable tableKMap2;
     private javax.swing.JTable tableTruthTable;
     private javax.swing.JTextField tfFunction;
+    private javax.swing.JTextField tfSimplifiedFunction;
     // End of variables declaration//GEN-END:variables
 }

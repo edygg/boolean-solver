@@ -194,4 +194,22 @@ public class TruthTable {
 
         return mintable;
     }
+    
+    public ArrayList<MinMaxTerm> getDontCareTerms() {
+        ArrayList<MinMaxTerm> retVal = new ArrayList();
+        for (int i = 0; i < table_function.length; i++) {
+            if (table_function[i] == 2) {
+                String tmp = "";
+                for (int j = 0; j < table[i].length; j++) {
+                    tmp += table[i][j];
+                }
+                
+                ArrayList<Integer> term = new ArrayList();
+                term.add(i);
+                retVal.add(new MinMaxTerm(tmp, true, term));
+            }
+        }
+        
+        return retVal;
+    }
 }
