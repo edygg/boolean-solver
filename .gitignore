@@ -5,3 +5,4 @@
 *.ear
 /boolean-solver/nbproject/private/
 /boolean-solver/build/
+/dist/
