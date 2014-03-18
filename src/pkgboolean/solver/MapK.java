@@ -15,10 +15,17 @@ public class MapK {
         this.mainTable = table;
     }
 
-    public Function simplifyaFunctionMinTerms() {
+    public String simplifyaFunctionMinTerms(boolean withMinTerms) throws InvalidDataException {
         /*Step 1*/
         ArrayList<MinMaxTerm> prime_implicant_chart = new ArrayList();
-        ArrayList<MinMaxTerm> ftable = this.mainTable.mintables();
+        ArrayList<MinMaxTerm> ftable = null;
+        
+        if (withMinTerms) {
+            ftable = this.mainTable.mintables();
+        } else {
+            ftable = this.mainTable.maxtables();
+        }
+        
         boolean withoutP = false;
         while (!withoutP) {
             ArrayList<MinMaxTerm> neoList = new ArrayList();
@@ -259,7 +266,66 @@ public class MapK {
         for (int i = 0; i < final_form.size(); i++) {
             System.out.println(final_form.get(i).getTerm());
         }
-        return null;
+        
+        String final_function = "";
+        
+        int variableLetter = 65;
+        ArrayList<Variable> functionVariables = new ArrayList();
+        for (int i = 0; i < (int) (Math.log(this.mainTable.getTableFunction().length) / Math.log(2)); i++) {
+            functionVariables.add(new Variable((char) variableLetter, false));
+            variableLetter++;
+        }
+        
+        if (withMinTerms) {
+            for (int i = 0; i < final_form.size(); i++) {
+                String term = final_form.get(i).getTerm();
+                for (int j = 0; j < term.length(); j++) {
+                    if (term.charAt(j) != '-') {
+                        if (term.charAt(j) == '1') {
+                            final_function += functionVariables.get(j).toString();
+                        } else {
+                            final_function += functionVariables.get(j).denyVariable().toString();
+                        }
+                    }
+                }
+                
+                if (i < final_form.size() - 1) {
+                    final_function += "+";
+                }
+            }
+        } else {
+            for (int i = 0; i < final_form.size(); i++) {
+                String term = final_form.get(i).getTerm();
+                ArrayList<String> tmp = new ArrayList();
+                
+                final_function += "(";
+                for (int j = 0; j < term.length(); j++) {
+                    if (term.charAt(j) != '-') {
+                        if (term.charAt(j) == '1') {
+                            tmp.add(functionVariables.get(j).denyVariable().toString());
+                        } else {
+                            tmp.add(functionVariables.get(j).toString());
+                        }
+                    }
+                }
+                
+                if (tmp.size() == 1) {
+                    final_function += tmp.get(0);
+                } else {
+                    for (int j = 0; j < tmp.size(); j++) {
+                        if (j < tmp.size() - 1) {
+                            final_function += tmp.get(j) + "+";
+                        } else {
+                            final_function += tmp.get(j);
+                        }
+                    }
+                }
+                
+                final_function += ")";
+            }
+        }
+        
+        return final_function;
     }
 
     private ArrayList<Integer> exists_implicants(char mat[][], int rows, int columns) {

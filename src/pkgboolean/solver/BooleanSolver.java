@@ -38,7 +38,8 @@ public class BooleanSolver {
             }
             System.out.println("\n\n\n");
             MapK mp = new MapK(tt);
-            mp.simplifyaFunctionMinTerms();
+            String finalFunction = mp.simplifyaFunctionMinTerms(false);
+            System.out.println(finalFunction);
             
         } catch (InvalidDataException ex) {
             ex.printStackTrace();

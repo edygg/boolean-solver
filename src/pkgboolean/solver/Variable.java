@@ -27,6 +27,10 @@ public class Variable implements Comparable<Variable> {
     public char getValue() {
         return value;
     }
+    
+    public Variable denyVariable() throws InvalidDataException {
+        return new Variable(this.value, !not);
+    }
 
     @Override
     public String toString() {

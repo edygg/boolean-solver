@@ -160,7 +160,7 @@ public class TruthTable {
         String temp;
         for (int i = 0; i < pos.size(); i++) {
             temp = "";
-            for (int j = 0; j < this.function.getVariableCount(); j++) {
+            for (int j = 0; j < table[0].length; j++) {
                 temp += Integer.toString(this.table[pos.get(i)][j]);
             }
             ArrayList<Integer> novo_list = new ArrayList();
@@ -183,7 +183,7 @@ public class TruthTable {
         String temp;
         for (int i = 0; i < pos.size(); i++) {
             temp = "";
-            for (int j = 0; j < this.function.getVariableCount(); j++) {
+            for (int j = 0; j < table[0].length; j++) {
                 temp += Integer.toString(this.table[pos.get(i)][j]);
             }
             ArrayList<Integer> novo_list = new ArrayList();

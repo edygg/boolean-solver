@@ -38,6 +38,7 @@ public class MainWindow extends javax.swing.JFrame {
         bgFunctionVariables = new javax.swing.ButtonGroup();
         bgTableVariables = new javax.swing.ButtonGroup();
         bgKMapVariables = new javax.swing.ButtonGroup();
+        bgTermsKMap = new javax.swing.ButtonGroup();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -73,6 +74,9 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         btnClearKMap = new javax.swing.JButton();
         btnGenerateKMap = new javax.swing.JButton();
+        rbtnMinTerms = new javax.swing.JRadioButton();
+        jLabel6 = new javax.swing.JLabel();
+        rbtnMaxTerms = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("DLD Project");
@@ -353,17 +357,21 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
+        bgTermsKMap.add(rbtnMinTerms);
+        rbtnMinTerms.setSelected(true);
+        rbtnMinTerms.setText("Min Terms");
+
+        jLabel6.setText("Format");
+
+        bgTermsKMap.add(rbtnMaxTerms);
+        rbtnMaxTerms.setText("Max Terms");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -381,11 +389,22 @@ public class MainWindow extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(rbtnFourVariablesKMap)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(rbtnFiveVariablesKMap)))
+                                .addComponent(rbtnFiveVariablesKMap)
+                                .addGap(139, 139, 139)
+                                .addComponent(rbtnMinTerms)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(rbtnMaxTerms)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnClearKMap, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnGenerateKMap, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE))))
+                            .addComponent(btnGenerateKMap, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel6)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -402,7 +421,10 @@ public class MainWindow extends javax.swing.JFrame {
                         .addComponent(rbtnTwoVariablesKMap)
                         .addComponent(rbtnThreeVariablesKMap)
                         .addComponent(rbtnFourVariablesKMap)
-                        .addComponent(rbtnFiveVariablesKMap))
+                        .addComponent(rbtnFiveVariablesKMap)
+                        .addComponent(rbtnMinTerms)
+                        .addComponent(jLabel6)
+                        .addComponent(rbtnMaxTerms))
                     .addComponent(btnClearKMap, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -464,6 +486,109 @@ public class MainWindow extends javax.swing.JFrame {
                     tableModel.setValueAt("x", i, tableModel.getColumnCount() - 1);
                 }
             }
+
+            if (rbtnTwoVariablesTable.isSelected()) {
+                rbtnTwoVariablesKMap.setSelected(false);
+            } else if (rbtnThreeVariablesTable.isSelected()) {
+                rbtnThreeVariablesKMap.setSelected(true);
+            } else if (rbtnFourVariablesTable.isSelected()) {
+                rbtnFourVariablesKMap.setSelected(true);
+            } else {
+                rbtnFiveVariablesKMap.setSelected(true);
+            }
+
+            generateKMap();
+
+            MapK mapk = new MapK((truthTable));
+            
+            int[] func = truthTable.getTableFunction();
+            ArrayList<String> functionValues = new ArrayList();
+            
+            for (int i = 0; i < func.length; i++) {
+                if (func[i] == 2) {
+                    functionValues.add("x");
+                } else {
+                    functionValues.add(Integer.toString(func[i]));
+                }
+                
+            }
+            
+
+            if (rbtnTwoVariablesKMap.isSelected()) {
+                this.tableKMap1.setValueAt(functionValues.get(0), 0, 0);
+                this.tableKMap1.setValueAt(functionValues.get(1), 0, 1);
+                this.tableKMap1.setValueAt(functionValues.get(2), 1, 0);
+                this.tableKMap1.setValueAt(functionValues.get(3), 1, 1);
+            } else if (rbtnThreeVariablesKMap.isSelected()) {
+                this.tableKMap1.setValueAt(functionValues.get(0), 0, 0);
+                this.tableKMap1.setValueAt(functionValues.get(1), 0, 1);
+                this.tableKMap1.setValueAt(functionValues.get(2), 0, 3);
+                this.tableKMap1.setValueAt(functionValues.get(3), 0, 2);
+                this.tableKMap1.setValueAt(functionValues.get(4), 1, 0);
+                this.tableKMap1.setValueAt(functionValues.get(5), 1, 1);
+                this.tableKMap1.setValueAt(functionValues.get(6), 1, 3);
+                this.tableKMap1.setValueAt(functionValues.get(7), 1, 2);
+
+            } else if (rbtnFourVariablesKMap.isSelected()) {
+                this.tableKMap1.setValueAt(functionValues.get(0), 0, 0);
+                this.tableKMap1.setValueAt(functionValues.get(1), 0, 1);
+                this.tableKMap1.setValueAt(functionValues.get(2), 0, 3);
+                this.tableKMap1.setValueAt(functionValues.get(3), 0, 2);
+                this.tableKMap1.setValueAt(functionValues.get(4), 1, 0);
+                this.tableKMap1.setValueAt(functionValues.get(5), 1, 1);
+                this.tableKMap1.setValueAt(functionValues.get(6), 1, 3);
+                this.tableKMap1.setValueAt(functionValues.get(7), 1, 2);
+                this.tableKMap1.setValueAt(functionValues.get(8), 3, 0);
+                this.tableKMap1.setValueAt(functionValues.get(9), 3, 1);
+                this.tableKMap1.setValueAt(functionValues.get(10), 3, 3);
+                this.tableKMap1.setValueAt(functionValues.get(11), 3, 2);
+                this.tableKMap1.setValueAt(functionValues.get(12), 2, 0);
+                this.tableKMap1.setValueAt(functionValues.get(13), 2, 1);
+                this.tableKMap1.setValueAt(functionValues.get(14), 2, 3);
+                this.tableKMap1.setValueAt(functionValues.get(15), 2, 2);
+            } else {
+                this.tableKMap1.setValueAt(functionValues.get(0), 0, 0);
+                this.tableKMap1.setValueAt(functionValues.get(1), 0, 1);
+                this.tableKMap1.setValueAt(functionValues.get(2), 0, 3);
+                this.tableKMap1.setValueAt(functionValues.get(3), 0, 2);
+                this.tableKMap1.setValueAt(functionValues.get(4), 1, 0);
+                this.tableKMap1.setValueAt(functionValues.get(5), 1, 1);
+                this.tableKMap1.setValueAt(functionValues.get(6), 1, 3);
+                this.tableKMap1.setValueAt(functionValues.get(7), 1, 2);
+                this.tableKMap1.setValueAt(functionValues.get(8), 3, 0);
+                this.tableKMap1.setValueAt(functionValues.get(9), 3, 1);
+                this.tableKMap1.setValueAt(functionValues.get(10), 3, 3);
+                this.tableKMap1.setValueAt(functionValues.get(11), 3, 2);
+                this.tableKMap1.setValueAt(functionValues.get(12), 2, 0);
+                this.tableKMap1.setValueAt(functionValues.get(13), 2, 1);
+                this.tableKMap1.setValueAt(functionValues.get(14), 2, 3);
+                this.tableKMap1.setValueAt(functionValues.get(15), 2, 2);
+
+                this.tableKMap2.setValueAt(functionValues.get(16), 0, 0);
+                this.tableKMap2.setValueAt(functionValues.get(17), 0, 1);
+                this.tableKMap2.setValueAt(functionValues.get(18), 0, 3);
+                this.tableKMap2.setValueAt(functionValues.get(19), 0, 2);
+                this.tableKMap2.setValueAt(functionValues.get(20), 1, 0);
+                this.tableKMap2.setValueAt(functionValues.get(21), 1, 1);
+                this.tableKMap2.setValueAt(functionValues.get(22), 1, 3);
+                this.tableKMap2.setValueAt(functionValues.get(23), 1, 2);
+                this.tableKMap2.setValueAt(functionValues.get(24), 3, 0);
+                this.tableKMap2.setValueAt(functionValues.get(25), 3, 1);
+                this.tableKMap2.setValueAt(functionValues.get(26), 3, 3);
+                this.tableKMap2.setValueAt(functionValues.get(27), 3, 2);
+                this.tableKMap2.setValueAt(functionValues.get(28), 2, 0);
+                this.tableKMap2.setValueAt(functionValues.get(29), 2, 1);
+                this.tableKMap2.setValueAt(functionValues.get(30), 2, 3);
+                this.tableKMap2.setValueAt(functionValues.get(31), 2, 2);
+            }
+
+            if (rbtnMinTerms.isSelected()) {
+                this.tfSimplifiedFunction.setText(mapk.simplifyaFunctionMinTerms(true));
+            } else {
+                this.tfSimplifiedFunction.setText(mapk.simplifyaFunctionMinTerms(false));
+            }
+            
+            JOptionPane.showMessageDialog(this, "Finish!", "Message", JOptionPane.INFORMATION_MESSAGE);
         } catch (InvalidDataException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -503,6 +628,95 @@ public class MainWindow extends javax.swing.JFrame {
             }
 
             TruthTable truthTable = new TruthTable(functionValues);
+
+            if (rbtnTwoVariablesTable.isSelected()) {
+                rbtnTwoVariablesKMap.setSelected(false);
+            } else if (rbtnThreeVariablesTable.isSelected()) {
+                rbtnThreeVariablesKMap.setSelected(true);
+            } else if (rbtnFourVariablesTable.isSelected()) {
+                rbtnFourVariablesKMap.setSelected(true);
+            } else {
+                rbtnFiveVariablesKMap.setSelected(true);
+            }
+
+            generateKMap();
+
+            if (rbtnTwoVariablesKMap.isSelected()) {
+                this.tableKMap1.setValueAt(functionValues.get(0), 0, 0);
+                this.tableKMap1.setValueAt(functionValues.get(1), 0, 1);
+                this.tableKMap1.setValueAt(functionValues.get(2), 1, 0);
+                this.tableKMap1.setValueAt(functionValues.get(3), 1, 1);
+            } else if (rbtnThreeVariablesKMap.isSelected()) {
+                this.tableKMap1.setValueAt(functionValues.get(0), 0, 0);
+                this.tableKMap1.setValueAt(functionValues.get(1), 0, 1);
+                this.tableKMap1.setValueAt(functionValues.get(2), 0, 3);
+                this.tableKMap1.setValueAt(functionValues.get(3), 0, 2);
+                this.tableKMap1.setValueAt(functionValues.get(4), 1, 0);
+                this.tableKMap1.setValueAt(functionValues.get(5), 1, 1);
+                this.tableKMap1.setValueAt(functionValues.get(6), 1, 3);
+                this.tableKMap1.setValueAt(functionValues.get(7), 1, 2);
+
+            } else if (rbtnFourVariablesKMap.isSelected()) {
+                this.tableKMap1.setValueAt(functionValues.get(0), 0, 0);
+                this.tableKMap1.setValueAt(functionValues.get(1), 0, 1);
+                this.tableKMap1.setValueAt(functionValues.get(2), 0, 3);
+                this.tableKMap1.setValueAt(functionValues.get(3), 0, 2);
+                this.tableKMap1.setValueAt(functionValues.get(4), 1, 0);
+                this.tableKMap1.setValueAt(functionValues.get(5), 1, 1);
+                this.tableKMap1.setValueAt(functionValues.get(6), 1, 3);
+                this.tableKMap1.setValueAt(functionValues.get(7), 1, 2);
+                this.tableKMap1.setValueAt(functionValues.get(8), 3, 0);
+                this.tableKMap1.setValueAt(functionValues.get(9), 3, 1);
+                this.tableKMap1.setValueAt(functionValues.get(10), 3, 3);
+                this.tableKMap1.setValueAt(functionValues.get(11), 3, 2);
+                this.tableKMap1.setValueAt(functionValues.get(12), 2, 0);
+                this.tableKMap1.setValueAt(functionValues.get(13), 2, 1);
+                this.tableKMap1.setValueAt(functionValues.get(14), 2, 3);
+                this.tableKMap1.setValueAt(functionValues.get(15), 2, 2);
+            } else {
+                this.tableKMap1.setValueAt(functionValues.get(0), 0, 0);
+                this.tableKMap1.setValueAt(functionValues.get(1), 0, 1);
+                this.tableKMap1.setValueAt(functionValues.get(2), 0, 3);
+                this.tableKMap1.setValueAt(functionValues.get(3), 0, 2);
+                this.tableKMap1.setValueAt(functionValues.get(4), 1, 0);
+                this.tableKMap1.setValueAt(functionValues.get(5), 1, 1);
+                this.tableKMap1.setValueAt(functionValues.get(6), 1, 3);
+                this.tableKMap1.setValueAt(functionValues.get(7), 1, 2);
+                this.tableKMap1.setValueAt(functionValues.get(8), 3, 0);
+                this.tableKMap1.setValueAt(functionValues.get(9), 3, 1);
+                this.tableKMap1.setValueAt(functionValues.get(10), 3, 3);
+                this.tableKMap1.setValueAt(functionValues.get(11), 3, 2);
+                this.tableKMap1.setValueAt(functionValues.get(12), 2, 0);
+                this.tableKMap1.setValueAt(functionValues.get(13), 2, 1);
+                this.tableKMap1.setValueAt(functionValues.get(14), 2, 3);
+                this.tableKMap1.setValueAt(functionValues.get(15), 2, 2);
+
+                this.tableKMap2.setValueAt(functionValues.get(16), 0, 0);
+                this.tableKMap2.setValueAt(functionValues.get(17), 0, 1);
+                this.tableKMap2.setValueAt(functionValues.get(18), 0, 3);
+                this.tableKMap2.setValueAt(functionValues.get(19), 0, 2);
+                this.tableKMap2.setValueAt(functionValues.get(20), 1, 0);
+                this.tableKMap2.setValueAt(functionValues.get(21), 1, 1);
+                this.tableKMap2.setValueAt(functionValues.get(22), 1, 3);
+                this.tableKMap2.setValueAt(functionValues.get(23), 1, 2);
+                this.tableKMap2.setValueAt(functionValues.get(24), 3, 0);
+                this.tableKMap2.setValueAt(functionValues.get(25), 3, 1);
+                this.tableKMap2.setValueAt(functionValues.get(26), 3, 3);
+                this.tableKMap2.setValueAt(functionValues.get(27), 3, 2);
+                this.tableKMap2.setValueAt(functionValues.get(28), 2, 0);
+                this.tableKMap2.setValueAt(functionValues.get(29), 2, 1);
+                this.tableKMap2.setValueAt(functionValues.get(30), 2, 3);
+                this.tableKMap2.setValueAt(functionValues.get(31), 2, 2);
+            }
+
+            MapK mapk = new MapK((truthTable));
+
+            if (rbtnMinTerms.isSelected()) {
+                this.tfSimplifiedFunction.setText(mapk.simplifyaFunctionMinTerms(true));
+            } else {
+                this.tfSimplifiedFunction.setText(mapk.simplifyaFunctionMinTerms(false));
+            }
+            JOptionPane.showMessageDialog(this, "Finish!", "Message", JOptionPane.INFORMATION_MESSAGE);
         } catch (InvalidDataException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -593,7 +807,7 @@ public class MainWindow extends javax.swing.JFrame {
                 functionValues.add(this.tableKMap1.getValueAt(2, 1).toString());
                 functionValues.add(this.tableKMap1.getValueAt(2, 3).toString());
                 functionValues.add(this.tableKMap1.getValueAt(2, 2).toString());
-                
+
                 functionValues.add(this.tableKMap2.getValueAt(0, 0).toString());
                 functionValues.add(this.tableKMap2.getValueAt(0, 1).toString());
                 functionValues.add(this.tableKMap2.getValueAt(0, 3).toString());
@@ -611,10 +825,10 @@ public class MainWindow extends javax.swing.JFrame {
                 functionValues.add(this.tableKMap2.getValueAt(2, 1).toString());
                 functionValues.add(this.tableKMap2.getValueAt(2, 3).toString());
                 functionValues.add(this.tableKMap2.getValueAt(2, 2).toString());
-                
+
                 truthTable = new TruthTable(functionValues);
             }
-            
+
             int[] tableFunction = truthTable.getTableFunction();
 
             if (rbtnTwoVariablesKMap.isSelected()) {
@@ -637,7 +851,14 @@ public class MainWindow extends javax.swing.JFrame {
                 }
             }
             this.tableTruthTable.setModel(tableModel);
-            
+
+            MapK mapk = new MapK(truthTable);
+            if (this.rbtnMinTerms.isSelected()) {
+                this.tfSimplifiedFunction.setText(mapk.simplifyaFunctionMinTerms(true));
+            } else {
+                this.tfSimplifiedFunction.setText(mapk.simplifyaFunctionMinTerms(false));
+            }
+            JOptionPane.showMessageDialog(this, "Finish!", "Message", JOptionPane.INFORMATION_MESSAGE);
         } catch (InvalidDataException ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -788,6 +1009,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.ButtonGroup bgFunctionVariables;
     private javax.swing.ButtonGroup bgKMapVariables;
     private javax.swing.ButtonGroup bgTableVariables;
+    private javax.swing.ButtonGroup bgTermsKMap;
     private javax.swing.JButton btnClearFunction;
     private javax.swing.JButton btnClearKMap;
     private javax.swing.JButton btnClearTable;
@@ -799,6 +1021,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -812,6 +1035,8 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbtnFourVariablesFunction;
     private javax.swing.JRadioButton rbtnFourVariablesKMap;
     private javax.swing.JRadioButton rbtnFourVariablesTable;
+    private javax.swing.JRadioButton rbtnMaxTerms;
+    private javax.swing.JRadioButton rbtnMinTerms;
     private javax.swing.JRadioButton rbtnThreeVariablesFunction;
     private javax.swing.JRadioButton rbtnThreeVariablesKMap;
     private javax.swing.JRadioButton rbtnThreeVariablesTable;
