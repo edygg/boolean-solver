@@ -57,7 +57,8 @@ public class MapK {
         for (int i = 0; i < prime_implicant_chart.size(); i++) {
             System.out.println(prime_implicant_chart.get(i).getTerm());
         }
-              
+            
+        
         return null;
     }
     
